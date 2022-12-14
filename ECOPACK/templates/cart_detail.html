@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     {% extends 'base.html' %}
+  {% block title %}
+  Ваша корзина товаров
+{% endblock %}
+</head>
+<body>
+{% block content %}
+<style>
+        .auth{
+          height: 1000px;
+          width: 1000px;
+          background-color: rgba(255,255,255,0.13);
+          position: absolute;
+          transform: translate(-50%,-50%);
+          top: 50%;
+          left: 50%;
+          border-radius: 10px;
+          backdrop-filter: blur(10px);
+          border: 2px solid rgba(255,255,255,0.1);
+          box-shadow: 0 0 40px rgba(8,7,16,0.6);
+          padding-bottom: 30px;
+          text-align: center;
+        }
+        body {
+          color: black;
+          width: 100%;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+        }
+        input{
+          text-align: center;
+          border-width: initial;
+          border-radius: 25px;
+        }
+</style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      if (document.cookie.length == 0){
+        document.cookie = document.getElementById("document").scrollTop.toString();
+      }
+      document.getElementById("scroll").scrollTop = Number(document.cookie);
+
+      function close_update(){``
+        document.cookie = document.getElementById("document").scrollTop.toString();
+      }
+    }, false);
+  </script>
+
+  <div class="auth">
+    <section class="h-100 h-custom" style="max-height: 948px">
+      <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+              <div class="card-body p-4">
+                <h1 class="mb-0" style="text-align: center; padding-bottom: 40px;">Корзина товаров</h1>
+                <div class="row" style="overflow: auto; height: 785px;" id="scroll">
+                  <div class="col-lg-7" style="max-width: 100%; min-width: 100%">
+                      {% for item in object_list %}
+                        {% with product=item %}
+                        <div class="card mb-3" style="border-radius: 15px;background: rgba(255,255,255,0.35); -webkit-backdrop-filter: blur(20px);  backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.525);">
+                          <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                              <div class="d-flex flex-row align-items-center" style="width: 50%">
+                                <div>
+
+                                  <img
+                                    src="{{MEDIA_URL}}{{ product.photo }}"
+                                    class="img-fluid rounded-3" alt="Shopping item" style="width: 150px;min-width: 150px; border-radius: 15px">
+                                </div>
+
+                                <div class="ms-3" style=" margin-left: 100px">
+                                  <h5>{{product.name}}</h5>
+                                </div>
+
+                              </div>
+
+                                <div class="btn-group" role="group" style="align-items: center;">
+                                  <a href='{% url "cart:product_count_minus" product.id %}' type="button" class="btn btn-dark" onclick="close_update()">-</a>
+                                  <button type="submit" class="btn btn-dark">{{product.quantity_in_cart}}</button>
+                                  <a href='{% url "cart:product_count_plus" product.id %}' type="button" class="btn btn btn-dark" onclick="close_update()">+</a>
+                                </div>
+
+                              <div class="d-flex flex-row align-items-center" style="text-align: center;">
+                                <div style="  width: 80px; color: black;">
+                                  <span style="color: black; font-weight: bold">{{product.price}}₽</span>
+                                </div>
+
+                                <form action='{% url "cart:product_delete" product.id %}' method="post" style="">
+                                    {% csrf_token %}
+                                    {{ form.as_p }}
+                                    <button type="submit" class="btn btn-dark">удалить</button>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    {% endwith %}
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+        </div>
+      </div>
+      <div style="color: black; cursor: pointer; ">
+        <button data-toggle="modal" data-target="#modal" type="button"
+                class="btn btn-dark btn-block btn-lg" style="position: absolute; border-radius: 10px; ">
+          <div class="d-flex justify-content-between">
+            <span>{{sum}}₽</span>
+            <span>Заказать</span>
+          </div>
+        </button>
+      </div>
+    </section>
+</div>
+{% if sum > 0 %}
+<div class="modal" id="modal" tabindex="0">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" style="text-align: center">Оповещение</h5>
+          <button type="button" class="btn btn-dark" data-dismiss="modal">x</button>
+        </div>
+        <div class="modal-body" style="text-align: center">
+          Заказ успешно оформлен, доставка займет не менее семи дней. Мы отправим данные о заказе на почту которую вы указали при содании пользователя
+          <div><a class="btn btn-dark" href="{% url 'cart:cart_clear' %}">Подтвердить</a></div>
+        </div>
+        <div class="modal-footer" style="justify-content: center;">
+          <p>Если остались вопросы о заказы: +79223640707</p>
+        </div>
+      </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+</body>
+
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Отзывы</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <style>
+            body{
+                margin-top:20px;
+                background:#eee;
+            }
+            @media (min-width: 0) {
+                .g-mr-15 {
+                    margin-right: 1.07143rem !important;
+                }
+            }
+            @media (min-width: 0){
+                .g-mt-3 {
+                    margin-top: 0.21429rem !important;
+                }
+            }
+
+            .g-height-50 {
+                height: 50px;
+            }
+
+            .g-width-50 {
+                width: 50px !important;
+            }
+
+            @media (min-width: 0){
+                .g-pa-30 {
+                    padding: 2.14286rem !important;
+                }
+            }
+
+            .g-bg-secondary {
+                background-color: #fafafa !important;
+            }
+
+            .u-shadow-v18 {
+                box-shadow: 0 5px 10px -6px rgba(0, 0, 0, 0.15);
+            }
+
+            .g-color-gray-dark-v4 {
+                color: #777 !important;
+            }
+
+            .g-font-size-12 {
+                font-size: 0.85714rem !important;
+            }
+
+            .media-comment {
+                margin-top:20px
+            }
+        .auth{
+        height: auto;
+        width: 1000px;
+        background-color: rgba(255,255,255,0.13);
+        position: absolute;
+        transform: translate(-50%,-50%);
+        top: 50%;
+        left: 50%;
+        border-radius: 10px;
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255,255,255,0.1);
+        box-shadow: 0 0 40px rgba(8,7,16,0.6);
+        padding-top: 30px;
+        padding-bottom: 30px;
+        text-align: center;
+        }
+        body {
+          color: black;
+          width: 100%;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+        }
+        .text{
+            color: black;
+            display: block;
+            margin-top: 30px;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        input{
+            text-align: center;
+            border-width: initial;
+            border-radius: 25px;
+        }
+    </style>
+</head>
+<body>
+    {% extends 'base.html' %}
+
+    {% block title %}Отзывы{% endblock %}
+
+    {% block content %}
+    <div class="auth">
+        <div class="container">
+            <div class="row" style="justify-content: center;">
+                <div class="col-md-8">
+                    <div class="media g-mb-30 media-comment" >
+                        <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src="https://sun9-55.userapi.com/impg/eO7OmAzRst877k-Lf7PxKlzOQYHLDurhwuk23g/hiSYnqtd_xU.jpg?size=384x552&quality=96&sign=4b921922a0dfb58ae050f32ab8028558&type=album" alt="Image Description">
+                        <div class="media-body u-shadow-v18 g-pa-30" style="border-radius: 15px;background: rgba(255,255,255,0.35); -webkit-backdrop-filter: blur(20px);  backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.525);">
+                          <div class="g-mb-15">
+                            <h5 class="h5 g-color-gray-dark-v1 mb-0">Кирилл Бондарев</h5>
+                            <span class= g-font-size-12" style="color: black">3 дня назад</span>
+                          </div>
+
+                          <p class="text">В бизнесе большую роль играют партнеры, с которыми взаимодействует компания. Надежный партнер — это уверенность в завтрашнем дне. ЭкоПак всегда оперативно и качественно решают поставленные задачи. Даже превосходят наши ожидания. Мы твердо уверены в наших деловых отношениях</p>
+
+                          <ul class="list-inline d-sm-flex my-0">
+                            <li class="list-inline-item g-mr-20">
+                              <div class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover">
+                                <i class="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3"></i>
+                                192
+                              </div>
+                            </li>
+                            <li class="list-inline-item g-mr-20">
+                              <div class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover">
+                                <i class="fa fa-thumbs-down g-pos-rel g-top-1 g-mr-3"></i>
+                                10
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="media g-mb-30 media-comment" >
+                        <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src="https://sun9-70.userapi.com/impg/_nszDEs7wGo9Uuztrg7Edfd8ZOFvsy_Mm38L7Q/1-tJkzGbPEs.jpg?size=563x373&quality=96&sign=ee95b5ad05ad7e4e946d7aceff0e580f&type=album" alt="Image Description">
+                        <div class="media-body u-shadow-v18 g-pa-30" style="border-radius: 15px;background: rgba(255,255,255,0.35); -webkit-backdrop-filter: blur(20px);  backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.525);">
+                          <div class="g-mb-15">
+                            <h5 class="h5 g-color-gray-dark-v1 mb-0">Илья Власов</h5>
+                            <span class= g-font-size-12" style="color: black">25 дней назад</span>
+                          </div>
+
+                          <p class="text">Работаем с Экопак более года. За это время было совершено более 150 доставок бумажных стаканчиков в наши кофейни.
+                              Ребята умеют преодолевать сложности в логистике, хорошо работают с собственными ошибками, частенько проявляют гибкость и оперативность в решении текущих задач.
+                              Мы довольны!</p>
+
+                          <ul class="list-inline d-sm-flex my-0">
+                            <li class="list-inline-item g-mr-20">
+                              <div class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover">
+                                <i class="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3"></i>
+                                732
+                              </div>
+                            </li>
+                            <li class="list-inline-item g-mr-20">
+                              <div class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover">
+                                <i class="fa fa-thumbs-down g-pos-rel g-top-1 g-mr-3"></i>
+                                59
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+</html>
