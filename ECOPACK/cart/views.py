@@ -1,87 +1,78 @@
 from django.shortcuts import render
+
 from . import models
-from products.models import Product
-from products.views import ProductListView
-from users.models import CustomUser
+
 import json
 
+from products.models import Product
 
-def CartListView(request):
-    user_cart = models.Product_in_cart.objects.get(user_id=request.user.pk)
-    sum_of_prices = 0
-    products_list = []
+from products.views import List_of_products
+
+from users.models import CustomUser
+
+
+def List_of_products_in_the_shopping_cart(request):
+    user_shopping_cart = models.Product_in_cart.objects.get(user_id=request.user.pk)
+    total_price_of_products = 0
+    products_list_in_cart = []
 
     try:
-        for pr in user_cart.products['products']:
-            product = Product.objects.get(id = pr['id'])
-            sum_of_prices += int(pr['quan']) * float(product.price)
-            product.price = product.price * int(pr['quan'])
-            product.quantity_in_cart = int(pr['quan'])
-            products_list.append(product)
-        number_of_positions = len(user_cart.products['products'])
+        for products in user_shopping_cart.products['products']:
+            product = Product.objects.get(id=products['id'])
+            total_price_of_products += int(products['quan']) * float(product.price)
+            product.price = product.price * int(products['quan'])
+            product.quantity_in_cart = int(products['quan'])
+            products_list_in_cart.append(product)
+        number_of_positions = len(user_shopping_cart.products['products'])
     except:
         number_of_positions = 0
 
-    return render(request, 'cart_detail.html', {'object_list': products_list, 'sum': sum_of_prices, 'cart_num': number_of_positions, 'user': CustomUser.objects.get(id=request.user.id)})
+    return render(request, 'shopping_cart.html', {'object_list': products_list_in_cart, 'sum': total_price_of_products,
+                                                  'cart_num': number_of_positions,
+                                                  'user': CustomUser.objects.get(id=request.user.id)})
 
 
 def cart_add(request, product_id):
     try:
         object = models.Product_in_cart.objects.get(user_id=request.user.pk)
         if object.user_id == request.user:
-            for index in range(len(object.products['products'])):
-                if object.products['products'][index]['id'] == product_id:
-                    object.products['products'][index]['quan'] += 1
+            for i in range(len(object.products['products'])):
+                if object.products['products'][i]['id'] == product_id:
+                    object.products['products'][i]['quan'] += 1
                     object.save()
-                    return ProductListView(request)
+                    return List_of_products(request)
 
             object.products['products'].append(json.loads('{"id":%s, "quan": 1}' % (product_id)))
             object.save()
-            return ProductListView(request)
+            return List_of_products(request)
     except:
         data = json.loads('{"products": [{"id":%s, "quan": 1}]}' % (product_id))
         new_cart = models.Product_in_cart.objects.create(user_id=request.user, products=data)
-    return ProductListView(request)
+    return List_of_products(request)
 
 
-
-def product_count_plus(request, pk):
+def product_interaction(request, pk, choices):
     user_cart = models.Product_in_cart.objects.get(user_id=request.user.pk)
-    for index in range(len(user_cart.products['products'])):
-        if user_cart.products['products'][index]['id'] == pk:
-            user_cart.products['products'][index]['quan'] += 1
+    if choices == 1:
+        for i in range(len(user_cart.products['products'])):
+            if user_cart.products['products'][i]['id'] == pk:
+                user_cart.products['products'][i]['quan'] += 1
+                user_cart.save()
+        return List_of_products_in_the_shopping_cart(request)
+    elif choices == 2:
+        for i in range(len(user_cart.products['products'])):
+            if user_cart.products['products'][i]['id'] == pk:
+                user_cart.products['products'][i]['quan'] -= 1
+                if user_cart.products['products'][i]['quan'] <= 0:
+                    user_cart.products['products'].pop(i)
             user_cart.save()
-    return CartListView(request)
-
-
-def product_count_minus(request, pk):
-    user_cart = models.Product_in_cart.objects.get(user_id=request.user.pk)
-    for index in range(len(user_cart.products['products'])):
-        if user_cart.products['products'][index]['id'] == pk:
-            user_cart.products['products'][index]['quan'] -= 1
-            if user_cart.products['products'][index]['quan'] <= 1:
-                user_cart.products['products'].pop(index)
-        user_cart.save()
-    return CartListView(request)
-
-
-def product_delete(request, product_id):
-    user_cart = models.Product_in_cart.objects.get(user_id=request.user.pk)
-    for index in range(len(user_cart.products['products'])):
-        if user_cart.products['products'][index]['id'] == product_id:
-            user_cart.products['products'].pop(index)
-            user_cart.save()
-            return CartListView(request)
-    return CartListView(request)
-
-
-def cart_clear(request):
-    user_cart = models.Product_in_cart.objects.get(user_id=request.user.pk)
-    if len(user_cart.products['products']) != 0:
-        user_cart.products = json.loads('{"products": []}')
-        user_cart.save()
-    return CartListView(request)
-
-
-
-
+        return List_of_products_in_the_shopping_cart(request)
+    elif choices == 3:
+        for i in range(len(user_cart.products['products'])):
+            if user_cart.products['products'][i]['id'] == pk:
+                user_cart.products['products'].pop(i)
+                user_cart.save()
+                return List_of_products_in_the_shopping_cart(request)
+        return List_of_products_in_the_shopping_cart(request)
+    else:
+        return List_of_products_in_the_shopping_cart(request)

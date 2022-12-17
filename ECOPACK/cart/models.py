@@ -3,7 +3,6 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import reverse
 from django import forms
 from users.models import CustomUser
-from products.models import Product
 
 
 class Product_in_cart(models.Model):

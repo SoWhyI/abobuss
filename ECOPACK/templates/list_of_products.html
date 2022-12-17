@@ -67,29 +67,20 @@
                             <div class="card" style="text-align: center; display: inline-block;
                                 margin: 10px;background:transparent; border: 2px solid rgba(255,255,255,0.2);">
                                 <div class="card" style="width: 250px;  background:transparent;">
-                                  <img width="228px" height="200px" src="{{MEDIA_URL}}{{ product.photo }}" class="card-img-top">
+                                  <img width="228px" height="200px" src="{{MEDIA_URL}}{{product.picture}}" class="card-img-top">
                                   <div class="card-body" style="padding: 1rem">
                                     <div style="height:72px; display: flex"><h5 class="card-title" style="margin: auto;
                                     color: black; font-weight: bold">{{ product.name }}</h5></div>
                                     <p class="card-text">
-                                        <span><p style="color: black; font-weight: bold"> Цена за 1000 шт:<br> {{ product.price }} руб.</p> </span>
-                                        <p style="margin: 10px">
-                                          <a class="btn" data-toggle="collapse" href="#collapseExample{{product.id}}" role="button" aria-expanded="false"
-                                             aria-controls="collapseExample" style="color: black; text-decoration: underline; font-weight: bold" >Описание</a>
-                                        </p>
-                                        <div class="collapse" id="collapseExample{{product.id}}" >
-                                          <div class="card card-body" style="border: none;background: rgba(255,255,255,0.2); backdrop-filter: blur(1px); border-radius: 25px; color: black">
-                                              <p>{{ product.description }}</p>
-                                            </div>
-                                        </div></span></p>
+                                        <span><p style="color: black; font-weight: bold"> Цена за 1000 шт:<br> {{ product.price }} руб.</p></span>
                                       {% if user.is_authenticated %}
                                         {% if "products.change_product" in user.get_user_permissions %}
                                             {% if "products.delete_product" in user.get_user_permissions %}
                                               <div class="btn-group" role="group" aria-label="Basic example">
-                                                  <a class="btn btn-secondary" href="{% url 'product_edit' product.pk %}">Изменить</a>
+                                                  <a class="btn btn-secondary" href="{% url 'product_changes' product.pk %}">Изменить</a>
                                               </div>
                                               <div class="btn-group" role="group" aria-label="Basic example">
-                                                  <a class="btn btn-secondary" href="{% url 'product_delete' product.pk %}"> Удалить</a>
+                                                  <a class="btn btn-secondary" href="{% url 'product_remove' product.pk %}"> Удалить</a>
                                               </div>
                                             {% endif %}
                                         {% endif %}
@@ -121,31 +112,22 @@
                             <div class="card" style="text-align: center; display: inline-block;
                                 margin: 10px;background:transparent; border: 2px solid rgba(255,255,255,0.2);">
                                 <div class="card" style="width: 250px;background:transparent;">
-                                  <img WIDTH="228" height="200px" src="{{MEDIA_URL}}{{ product.photo }}" class="card-img-top">
+                                  <img WIDTH="228" height="200px" src="{{MEDIA_URL}}{{ product.picture }}" class="card-img-top">
                                   <div class="card-body" style="padding: 1rem">
                                     <div style="height:72px; display: flex"><h5 class="card-title" style="margin: auto;
                                     color: black; font-weight: bold">{{ product.name }}</h5></div>
                                     <p class="card-text">
                                         <span><p style="color: black; font-weight: bold"> Цена за 1000 шт:<br> {{ product.price }} руб.</p> </span>
-                                        <p style="margin: 10px">
-                                          <a class="btn" data-toggle="collapse" href="#collapseExample{{product.id}}" role="button" aria-expanded="false"
-                                             aria-controls="collapseExample" style="color: black; text-decoration: underline; font-weight: bold" >Описание</a>
-                                        </p>
-                                        <div class="collapse" id="collapseExample{{product.id}}" >
-                                          <div class="card card-body" style="border: none;background: rgba(255,255,255,0.2); backdrop-filter: blur(1px); border-radius: 25px; color: black">
-                                              <p>{{ product.description }}</p>
-                                            </div>
-                                        </div></span></p>
 
                                       {% if user.is_authenticated %}
                                         {% if "products.change_product" in user.get_user_permissions %}
                                             {% if "products.delete_product" in user.get_user_permissions %}
 
                                               <div class="btn-group" role="group" aria-label="Basic example">
-                                                  <a class="btn btn-secondary" href="{% url 'product_edit' product.pk %}">Изменить</a>
+                                                  <a class="btn btn-secondary" href="{% url 'product_changes' product.pk %}">Изменить</a>
                                               </div>
                                               <div class="btn-group" role="group" aria-label="Basic example">
-                                                  <a class="btn btn-secondary" href="{% url 'product_delete' product.pk %}"> Удалить</a>
+                                                  <a class="btn btn-secondary" href="{% url 'product_remove' product.pk %}"> Удалить</a>
                                               </div>
                                             {% endif %}
                                         {% endif %}

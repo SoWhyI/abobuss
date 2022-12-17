@@ -68,7 +68,7 @@
                                 <div>
 
                                   <img
-                                    src="{{MEDIA_URL}}{{ product.photo }}"
+                                    src="{{MEDIA_URL}}{{ product.picture }}"
                                     class="img-fluid rounded-3" alt="Shopping item" style="width: 150px;min-width: 150px; border-radius: 15px">
                                 </div>
 
@@ -79,9 +79,9 @@
                               </div>
 
                                 <div class="btn-group" role="group" style="align-items: center;">
-                                  <a href='{% url "cart:product_count_minus" product.id %}' type="button" class="btn btn-dark" onclick="close_update()">-</a>
+                                  <a href='{% url "cart:product_add" product.pk 2 %}' type="button" class="btn btn-dark" onclick="close_update()">-</a>
                                   <button type="submit" class="btn btn-dark">{{product.quantity_in_cart}}</button>
-                                  <a href='{% url "cart:product_count_plus" product.id %}' type="button" class="btn btn btn-dark" onclick="close_update()">+</a>
+                                  <a href='{% url "cart:product_remove" product.pk 1 %}' type="button" class="btn btn btn-dark" onclick="close_update()">+</a>
                                 </div>
 
                               <div class="d-flex flex-row align-items-center" style="text-align: center;">
@@ -89,7 +89,7 @@
                                   <span style="color: black; font-weight: bold">{{product.price}}₽</span>
                                 </div>
 
-                                <form action='{% url "cart:product_delete" product.id %}' method="post" style="">
+                                <form action='{% url "cart:product_full_delete" product.pk 3 %}' method="post" style="">
                                     {% csrf_token %}
                                     {{ form.as_p }}
                                     <button type="submit" class="btn btn-dark">удалить</button>
@@ -121,20 +121,26 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" style="text-align: center">Оповещение</h5>
+          <h5 class="modal-title" style="text-align: center">Заказ оформлен успешно!</h5>
           <button type="button" class="btn btn-dark" data-dismiss="modal">x</button>
         </div>
         <div class="modal-body" style="text-align: center">
-          Заказ успешно оформлен, доставка займет не менее семи дней. Мы отправим данные о заказе на почту которую вы указали при содании пользователя
-          <div><a class="btn btn-dark" href="{% url 'cart:cart_clear' %}">Подтвердить</a></div>
+          Заказ успешно оформлен.<br> Доставка займет не менее семи дней.<br> Мы отправим данные о заказе на почту которую вы указали при создании пользователя <br>
         </div>
         <div class="modal-footer" style="justify-content: center;">
           <p>Если остались вопросы о заказы: +79223640707</p>
+          <div><a class="btn btn-dark" href="{% url 'cart:cart_clear' %}" id="buy_btn">Подтвердить</a></div>
         </div>
       </div>
     </div>
 </div>
 {% endif %}
+<script>
+Event_click = document.getElementById("buy_btn");
+    Event_click.addEventListener("click", function(){
+          window.location.href = '{% url "orders:Add_the_order_to_the_users_order_list" %}';
+        });
+</script>
 {% endblock %}
 </body>
 

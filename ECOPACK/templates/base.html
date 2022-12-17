@@ -201,14 +201,15 @@
                                     <div class="dropdown-menu dropdown-menu-right" aria-labeledby="DropdownMenu"
                                          style="border-radius:10px; border-width: 2px;border-style: solid;">
                                         <a class="dropdown-item" href="http://127.0.0.1:8000/users/profile/{{ user.id }}">Профиль</a>
-                                        <a class="dropdown-item" href="{% url 'product_list' %}">Товары</a>
+                                        <a class="dropdown-item" href="{% url 'list_of_products' %}">Товары</a>
                                         <a class="dropdown-item" href="{% url 'about' %}">О нас</a>
                                         <a class="dropdown-item" href="{% url 'reviews' %}">Отзывы</a>
                                         <a class="dropdown-item" href="http://127.0.0.1:8000/cart/detail">Корзина</a>
                                         <div class="dropdown-divider"></div>
                                         {% if "orders.change_order" in user.get_user_permissions %}
-                                        <a class="dropdown-item" href="{% url 'product_create'%}">Новый продукт</a>
+                                        <a class="dropdown-item" href="{% url 'product_creation'%}">Новый продукт</a>
                                         {% endif %}
+                                        <a class="dropdown-item" href="http://127.0.0.1:8000/List_of_user_orders/">Заказы</a>
                                         <a class="dropdown-item" href="{% url 'password_change' %}">Изменить пароль</a>
                                         <a class="dropdown-item" href="{% url 'logout' %}">Выйти</a>
                                     </div>

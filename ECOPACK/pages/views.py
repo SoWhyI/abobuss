@@ -4,8 +4,8 @@ from django.views.generic import TemplateView
 class HomePageView(TemplateView):
     template_name = 'home.html'
 
-class AboutPageView(TemplateView):
-    template_name = 'about.html'
+class AboutTheCompanyPageView(TemplateView):
+    template_name = 'about_the_company.html'
 
-class ReviewsPageView(TemplateView):
-    template_name = 'reviews.html'
+class CompanyReviewsPageView(TemplateView):
+    template_name = 'company_reviews.html'

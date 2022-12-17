@@ -14,12 +14,11 @@ class Product(models.Model):
     ]
     layer_field = models.CharField(unique=False, max_length=15, null=True, choices=layer, verbose_name="Количество слоев")
     category = models.CharField(max_length=25, null=True, verbose_name="Категория")
-    description = models.TextField(max_length=500, verbose_name="Описание")
-    photo = models.ImageField(upload_to='uploads/', null=True, verbose_name="Фотография")
-    quantity_in_cart = models.IntegerField(null=True, blank=True)
+    picture = models.ImageField(upload_to='uploads/', null=True, verbose_name="Фотография")
+    number_of_items_in_cart = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('product_list')
+        return reverse('list_of_products')

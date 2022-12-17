@@ -7,16 +7,21 @@ from cart.models import Product_in_cart
 from . import forms
 from . import models
 
-def quan_ren(request):
-    products = models.Product.objects.all()
-    try:
-        number_of_positions = len((Product_in_cart.objects.get(user_id=request.user.pk)).products['products'])
-    except:
-        number_of_positions = 0
-    return render(request,'none.html', {'cart_num':number_of_positions})
+class ProductRemoveView(LoginRequiredMixin, DeleteView):
+    model = models.Product
+    template_name = 'product_remove.html'
+    success_url = reverse_lazy('list_of_products')
+    login_url = 'login'
 
 
-def ProductListView(request):
+
+class ProductChangesView(LoginRequiredMixin, UpdateView):
+    model = models.Product
+    fields = ['name', 'price', 'size', 'layer_field', 'category', 'picture']
+    template_name = 'product_changes.html'
+    login_url = 'login'
+
+def List_of_products(request):
     products = models.Product.objects.all()
     try:
         number_of_positions = len((Product_in_cart.objects.get(user_id=request.user.pk)).products['products'])
@@ -28,8 +33,7 @@ def ProductListView(request):
             pass
         else:
             categories.append(products[index].category)
-    return render(request, 'product_list.html',
-                  {'object_list': products,  'cart_num': number_of_positions, 'categories': categories})
+    return render(request, 'list_of_products.html', {'object_list': products,  'cart_num': number_of_positions, 'categories': categories})
 
 
 def image_request(request):
@@ -38,32 +42,13 @@ def image_request(request):
         if form.is_valid():
             form.save()
 
-            # Getting the current instance object to display in the template
             img_object = form.instance
 
-            return render(request, 'product_create.html', {'form': form, 'img_obj': img_object})
+            return render(request, 'product_creation.html', {'form': form, 'img_obj': img_object})
     else:
         form = forms.UserImage()
 
-    return render(request, 'product_create.html', {'form': form})
-
-
-
-class ProductDeleteView(LoginRequiredMixin, DeleteView):
-    model = models.Product
-    template_name = 'product_delete.html'
-    success_url = reverse_lazy('product_list')
-    login_url = 'login'
-
-
-
-class ProductUpdateView(LoginRequiredMixin, UpdateView):
-    model = models.Product
-    fields = ['name', 'price', 'size', 'layer_field', 'category', 'description', 'photo']
-    template_name = 'product_edit.html'
-    login_url = 'login'
-
-
+    return render(request, 'product_creation.html', {'form': form})
 
     def form_valid(self, form):
         form.instance.author = self.request.user
