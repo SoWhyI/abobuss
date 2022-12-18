@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Заказы</title>
+    {% extends 'base.html' %}
+</head>
+<body class="p-3 m-0 border-0 bd-example">
+    {% block content %}
+    <style>
+        .design{
+            height: auto;
+            width: 1200px;
+            background-color: rgba(255,255,255,0.13);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.1);
+            box-shadow: 0 0 40px rgba(8,7,16,0.6);
+            padding-top: 30px;
+            padding-bottom: 30px;
+            text-align: center;
+        }
+        body {
+          color: black;
+          width: 100%;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+        }
+        input{
+            text-align: center;
+            border-width: initial;
+            border-radius: 25px;
+        }
+
+    </style>
+    <div class="container" style="padding-top:400px ">
+                    {% for item in object_list %}
+    <div class="design" >
+
+              <div class="card" style="margin: 20px; background:transparent; border-radius: 10px; backdrop-filter: blur(10px); border: 2px solid rgba(255,255,255,0.1); box-shadow: 0 0 40px rgba(8,7,16,0.6);">
+                  <h5 class="mb-0">
+                    <button class="btn btn-dark" data-toggle="modal" data-target="#OrderDetailModal{{item.id}}" type="button" style="width: 100%; border-radius: 10px;">
+                      Заказ №{{item.id}}
+                    </button>
+                  </h5>
+              </div>
+
+    </div>
+
+
+        <div class="modal" id="OrderDetailModal{{item.id}}" tabindex="0" >
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" style="text-align: center">Просмотр заказа</h5>
+                  <button type="button" class="btn btn-dark" data-dismiss="modal">x</button>
+                </div>
+                <div class="modal-body" style="text-align: center">
+                    <div class="container">
+                        <div id="{{item.id}}">
+                          <div class="card-body">
+                              <ul>
+                                  {% for product in item.product_list %}
+                                  <div class="card" style="background:transparent; margin-top: 20px; border-radius: 10px; backdrop-filter: blur(10px); border: 2px solid rgba(255,255,255,0.1); box-shadow: 0 0 40px rgba(8,7,16,0.6);">
+                                    <img src="{{MEDIA_URL}}{{ product.picture }}" class="card-img-top" style="width: 228px; height: 200px">
+                                      <div class="card-body">
+                                        <h5 class="card-title">{{product.name}}</h5>
+                                          <div class="btn-group" role="group">
+                                            <div class="text-wrap" style=" font-size: 16px;">
+                                                    <p>Цена: {{product.price}}</p>
+                                                    <p>Кол-во: {{product.quantity_in_cart}}</p>
+                                            </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  {% endfor %}
+                              </ul>
+                          </div>
+                        </div>
+                    </div>
+
+
+                </div>
+              </div>
+            </div>
+        </div>
+
+
+    {% endfor %}
+</div>
+    {% endblock %}
+</body>
+</html>

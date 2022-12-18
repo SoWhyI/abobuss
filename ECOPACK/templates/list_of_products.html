@@ -40,7 +40,7 @@
             function httpGet(theUrl)
             {
                 var xmlHttp = new XMLHttpRequest();
-                xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+                xmlHttp.open( "GET", theUrl, false );
                 xmlHttp.send( null );
                 return xmlHttp.responseText;
             }
@@ -66,7 +66,7 @@
                         {% for product in object_list %}
                             <div class="card" style="text-align: center; display: inline-block;
                                 margin: 10px;background:transparent; border: 2px solid rgba(255,255,255,0.2);">
-                                <div class="card" style="width: 250px;  background:transparent;">
+                                <div class="card" style="width: 250px;  background:transparent; border-radius: 10px; backdrop-filter: blur(10px); border: 2px solid rgba(255,255,255,0.1); box-shadow: 0 0 40px rgba(8,7,16,0.6); ">
                                   <img width="228px" height="200px" src="{{MEDIA_URL}}{{product.picture}}" class="card-img-top">
                                   <div class="card-body" style="padding: 1rem">
                                     <div style="height:72px; display: flex"><h5 class="card-title" style="margin: auto;
@@ -89,7 +89,7 @@
                                       <script>
                                           function httpGet{{product.id}}{{product.size}}(){
                                                 var xmlHttp = new XMLHttpRequest();
-                                                xmlHttp.open( "GET", "{% url 'cart:cart_add' product.pk %}" , false ); // false for synchronous request
+                                                xmlHttp.open( "GET", "{% url 'cart:adding_products_to_cart' product.pk %}" , false ); // false for synchronous request
                                                 xmlHttp.send( null );
                                                 return xmlHttp.responseText;
                                             }
@@ -111,7 +111,7 @@
                           {% if category == product.category %}
                             <div class="card" style="text-align: center; display: inline-block;
                                 margin: 10px;background:transparent; border: 2px solid rgba(255,255,255,0.2);">
-                                <div class="card" style="width: 250px;background:transparent;">
+                                <div class="card" style="width: 250px;  background:transparent; border-radius: 10px; backdrop-filter: blur(10px); border: 2px solid rgba(255,255,255,0.1); box-shadow: 0 0 40px rgba(8,7,16,0.6); ">
                                   <img WIDTH="228" height="200px" src="{{MEDIA_URL}}{{ product.picture }}" class="card-img-top">
                                   <div class="card-body" style="padding: 1rem">
                                     <div style="height:72px; display: flex"><h5 class="card-title" style="margin: auto;
@@ -136,7 +136,7 @@
                                       <script>
                                           function httpGet{{product.id}}{{product.size}}(){
                                                 var xmlHttp = new XMLHttpRequest();
-                                                xmlHttp.open( "GET", "{% url 'cart:cart_add' product.pk %}" , false ); // false for synchronous request
+                                                xmlHttp.open( "GET", "{% url 'cart:adding_products_to_cart' product.pk %}" , false ); // false for synchronous request
                                                 xmlHttp.send( null );
                                                 return xmlHttp.responseText;
                                             }

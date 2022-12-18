@@ -11,5 +11,6 @@ class Product_in_cart(models.Model):
     products = models.JSONField(unique=False, null=True)
 
 
+
     def get_absolute_url(self):
-        return reverse('product_list')
+        return reverse('list_of_products')

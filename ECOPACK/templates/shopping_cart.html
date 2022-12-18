@@ -38,18 +38,6 @@
           border-radius: 25px;
         }
 </style>
-  <script>
-    document.addEventListener('DOMContentLoaded', function(){
-      if (document.cookie.length == 0){
-        document.cookie = document.getElementById("document").scrollTop.toString();
-      }
-      document.getElementById("scroll").scrollTop = Number(document.cookie);
-
-      function close_update(){``
-        document.cookie = document.getElementById("document").scrollTop.toString();
-      }
-    }, false);
-  </script>
 
   <div class="auth">
     <section class="h-100 h-custom" style="max-height: 948px">
@@ -65,11 +53,9 @@
                           <div class="card-body">
                             <div class="d-flex justify-content-between">
                               <div class="d-flex flex-row align-items-center" style="width: 50%">
-                                <div>
 
-                                  <img
-                                    src="{{MEDIA_URL}}{{ product.picture }}"
-                                    class="img-fluid rounded-3" alt="Shopping item" style="width: 150px;min-width: 150px; border-radius: 15px">
+                                <div>
+                                  <img src="{{MEDIA_URL}}{{ product.picture }}" class="img-fluid rounded-3" alt="Shopping item" style="width: 150px;min-width: 150px; border-radius: 15px">
                                 </div>
 
                                 <div class="ms-3" style=" margin-left: 100px">
@@ -79,9 +65,9 @@
                               </div>
 
                                 <div class="btn-group" role="group" style="align-items: center;">
-                                  <a href='{% url "cart:product_add" product.pk 2 %}' type="button" class="btn btn-dark" onclick="close_update()">-</a>
-                                  <button type="submit" class="btn btn-dark">{{product.quantity_in_cart}}</button>
-                                  <a href='{% url "cart:product_remove" product.pk 1 %}' type="button" class="btn btn btn-dark" onclick="close_update()">+</a>
+                                  <a href='{% url "cart:product_remove" product.pk 2 %}' type="button" class="btn btn-dark" onclick="close_update()">-</a>
+                                  <button type="submit" class="btn btn-dark">{{product.number_of_items_in_cart}}</button>
+                                  <a href='{% url "cart:product_add" product.pk 1 %}' type="button" class="btn btn btn-dark" onclick="close_update()">+</a>
                                 </div>
 
                               <div class="d-flex flex-row align-items-center" style="text-align: center;">
@@ -105,18 +91,19 @@
               </div>
         </div>
       </div>
-      <div style="color: black; cursor: pointer; ">
-        <button data-toggle="modal" data-target="#modal" type="button"
-                class="btn btn-dark btn-block btn-lg" style="position: absolute; border-radius: 10px; ">
-          <div class="d-flex justify-content-between">
-            <span>{{sum}}₽</span>
-            <span>Заказать</span>
-          </div>
-        </button>
-      </div>
+        <div style="color: black; cursor: pointer; ">
+          <button data-toggle="modal" data-target="#modal" type="button"
+                  class="btn btn-dark btn-block btn-lg" style="position: absolute; border-radius: 10px; ">
+            <div class="d-flex justify-content-between">
+              <span>{{sum}}₽</span>
+              <span>Заказать</span>
+            </div>
+          </button>
+        </div>
     </section>
 </div>
-{% if sum > 0 %}
+
+
 <div class="modal" id="modal" tabindex="0">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -125,22 +112,25 @@
           <button type="button" class="btn btn-dark" data-dismiss="modal">x</button>
         </div>
         <div class="modal-body" style="text-align: center">
-          Заказ успешно оформлен.<br> Доставка займет не менее семи дней.<br> Мы отправим данные о заказе на почту которую вы указали при создании пользователя <br>
+          Заказ успешно оформлен.<br> Доставка займет не менее семи дней.<br> Мы отправим данные о заказе на почту которую вы указали при создании вашего аккаунта <br>
         </div>
         <div class="modal-footer" style="justify-content: center;">
           <p>Если остались вопросы о заказы: +79223640707</p>
-          <div><a class="btn btn-dark" href="{% url 'cart:cart_clear' %}" id="buy_btn">Подтвердить</a></div>
+          <div><a class="btn btn-dark" id="buy_button" style="color: white">Подтвердить</a></div>
         </div>
       </div>
     </div>
 </div>
-{% endif %}
+
+
 <script>
-Event_click = document.getElementById("buy_btn");
-    Event_click.addEventListener("click", function(){
-          window.location.href = '{% url "orders:Add_the_order_to_the_users_order_list" %}';
-        });
+    Event_click = document.getElementById("buy_button");
+       Event_click.addEventListener("click", function(){
+         window.location.href = '{% url "orders:Add_the_order_to_the_users_order_list" %}';
+       })
+
 </script>
+
 {% endblock %}
 </body>
 

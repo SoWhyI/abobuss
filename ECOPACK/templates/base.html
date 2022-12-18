@@ -17,13 +17,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <style>
-            body {
+        body {
               margin: 0;
               padding: 0;
-              width: 100%;
-        }
-
-        body {
               font-family: "Helvetica Neue",sans-serif;
               font-weight: lighter;
               width: 100%;
@@ -209,7 +205,7 @@
                                         {% if "orders.change_order" in user.get_user_permissions %}
                                         <a class="dropdown-item" href="{% url 'product_creation'%}">Новый продукт</a>
                                         {% endif %}
-                                        <a class="dropdown-item" href="http://127.0.0.1:8000/List_of_user_orders/">Заказы</a>
+                                        <a class="dropdown-item" href="http://127.0.0.1:8000/order/user_orders_detail">Заказы</a>
                                         <a class="dropdown-item" href="{% url 'password_change' %}">Изменить пароль</a>
                                         <a class="dropdown-item" href="{% url 'logout' %}">Выйти</a>
                                     </div>
