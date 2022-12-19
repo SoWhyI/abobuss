@@ -65,12 +65,12 @@
       </div>
     <div style="display:block;">
         {% if img_obj %}
-        <h3>Succesfully uploaded : {{img_obj.name}}</h3>
+        <h3>Успешно обновлено : {{img_obj.name}}</h3>
         <img src="{{MEDIA_URL}}{{ img_obj.photo }}">
     {% endif %}
     </div>
   {% else %}
-  <h1>У вас недостаточно прав для изменения товара</h1>
+  <h1>Недостаточно прав для изменения товара</h1>
   {% endif %}
 {% endblock content %}
 </body>

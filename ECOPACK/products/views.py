@@ -69,6 +69,3 @@ def image_request(request):
 
     return render(request, 'product_creation.html', {'form': form})
 
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)

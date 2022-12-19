@@ -37,7 +37,7 @@
         }
         </style>
             <script>
-            function httpGet(theUrl)
+            function httpGet(theUrl) //требуется для того что бы страница не перезагружалась, когда добавляешь новый продукт в корзину
             {
                 var xmlHttp = new XMLHttpRequest();
                 xmlHttp.open( "GET", theUrl, false );
@@ -89,7 +89,7 @@
                                       <script>
                                           function httpGet{{product.id}}{{product.size}}(){
                                                 var xmlHttp = new XMLHttpRequest();
-                                                xmlHttp.open( "GET", "{% url 'cart:adding_products_to_cart' product.pk %}" , false ); // false for synchronous request
+                                                xmlHttp.open( "GET", "{% url 'cart:adding_products_to_cart' product.pk %}" , false );
                                                 xmlHttp.send( null );
                                                 return xmlHttp.responseText;
                                             }

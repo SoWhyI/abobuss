@@ -22,18 +22,19 @@ def List_of_products_in_the_shopping_cart(request):
     try:
         for products in user_shopping_cart.products['products']:
 
-            product = Product.objects.filter(id=products['id'])[0]
+            product = Product.objects.filter(id=products['id'])[0] #сущность продукта
             total_price_of_products += int(products['quantity']) * float(product.price)
             product.price = product.price * int(products['quantity'])
             product.number_of_items_in_cart = int(products['quantity'])
-            products_list_in_cart.append(product)
+            products_list_in_cart.append(product) #добавление в массив
 
         number_of_positions = len(user_shopping_cart.products['products'])
 
     except:
         number_of_positions = 0
 
-    return render(request, 'shopping_cart.html', {'object_list': products_list_in_cart, 'sum': total_price_of_products, 'cart_num': number_of_positions, 'user': CustomUser.objects.get(id=request.user.id)})
+    return render(request, 'shopping_cart.html', {'object_list': products_list_in_cart, 'sum': total_price_of_products,
+                                                  'cart_num': number_of_positions, 'user': CustomUser.objects.get(id=request.user.id)})
 
 
 
@@ -47,14 +48,14 @@ def adding_products_to_cart(request, product_id):
 
             for i in range(len(item.products['products'])):
 
-                if item.products['products'][i]['id'] == product_id:
+                if item.products['products'][i]['id'] == product_id: #если есть продукт в корзине
 
                     item.products['products'][i]['quantity'] += 1
                     item.save()
 
                     return List_of_products(request)
 
-            item.products['products'].append(json.loads('{"id":%s, "quantity": 1}' % (product_id)))
+            item.products['products'].append(json.loads('{"id":%s, "quantity": 1}' % (product_id))) #если нет продукта в корзине
             item.save()
 
             return List_of_products(request)
